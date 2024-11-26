@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
+    // 一つの投稿は1人のユーザーに属する
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
