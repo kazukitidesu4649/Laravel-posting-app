@@ -31,6 +31,6 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/', [PostController::class, 'index'])->middleware(['auth', 'verified'])->name('posts.index');
+Route::get('/posts', [PostController::class, 'index'])->middleware(['auth', 'verified'])->name('posts.index');
 
 Route::get('/posts/{post}', [PostController::class, 'show'])->middleware(['auth','verified'])->name('posts.show');

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\post;
+use App\Models\Post;
 
 class postTest extends TestCase
 {
@@ -37,7 +37,7 @@ class postTest extends TestCase
     public function test_guest_cannnot_access_posts_show()
     {
         $user = User::factory()->create();
-        $post = Post::factory()->create(['user_id', $user->id]);
+        $post = Post::factory()->create(['user_id'=> $user->id]);
 
         $response = $this->get(route('posts.show', $post));
 
