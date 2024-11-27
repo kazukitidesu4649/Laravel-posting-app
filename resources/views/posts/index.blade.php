@@ -25,6 +25,12 @@
 
     <main>
         <h1>投稿一覧</h1>
+        
+        <!-- sessionへルパ関数を用い、if文でflash_messageを表示 -->
+        @if (session('flash_message'))
+          <p>{{ session('flash_message') }}</p>
+        @endif
+        
         @if ($posts->isNotEmpty())
           @foreach ($posts as $post)
             <article>
