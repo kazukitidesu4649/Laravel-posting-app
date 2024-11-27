@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -24,5 +25,27 @@ class PostController extends Controller
     {
         // show.blade.phpテンプレートに$postを渡す。
         return view('posts.show', compact('post'));
+    }
+
+    // 作成ページ
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    // 作成機能
+    public function store(PostRequest $request)
+    {   
+        // Postのインスタンス化
+        $post = new Post();
+        // 変数$postにそれぞれの情報を格納
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->user_id = Auth::id();
+        // 情報をセーブ
+        $post->save();
+        
+        // 投稿一覧ページにリダイレクト　メッセージが残る
+        return redirect()->route('posts.index')->with('flash_message','投稿が完了しました。');
     }
 }
