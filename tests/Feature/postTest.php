@@ -55,4 +55,26 @@ class postTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee($post->title);
     }
+
+    // 未ログインのユーザーは新規投稿ページにアクセスできない
+    public function test_guest_cannot_access_posts_create()
+    {
+        $response = $this->get(route('posts.create'));
+
+        $response->assertRedirect(route('login'));
+    }
+
+    // ログイン済みのユーザーは新規投稿ページにアクセスできる
+    public function test_user_can_access_posts_create()
+    {
+        // ユーザーファクトリを使ってテスト用のユーザーを作成
+        $user = User::factory()->create();
+
+        // $this->actingAs($user)テストリクエストを行う前に、作成されたユーザーで認証された状態を試す。
+        $response = $this->actingAs($user)->get(route('posts.create'));
+
+        // HTTPステータス200 = OK であること。
+        // つまり、ページが正常である事
+        $response->assertStatus(200);
+    }
 }
