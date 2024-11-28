@@ -108,16 +108,17 @@ class postTest extends TestCase
         $response->assertRedirect(route('posts.index'));
     }
 
-    // 未ログインのユーザーは投稿編集ページにアクセスできない
-    public function test_guest_cannot_access_posts_edit()
-    {
-        $user = User::factory()->create();
-        $Post = Post::factory()->create(['user_id' => $user->id]);
-
-        $response = $this->get(route('posts.edit, $post'));
-
-        $response->assertRedirect(route('login'));
-    }
+     // 未ログインのユーザーは投稿編集ページにアクセスできない
+     public function test_guest_cannot_access_posts_edit()
+     {
+         $user = User::factory()->create();
+         $post = Post::factory()->create(['user_id' => $user->id]);
+ 
+         $response = $this->get(route('posts.edit', $post));
+ 
+         $response->assertRedirect(route('login'));
+     }
+ 
 
     // ログイン済みのユーザーは他人の投稿編集ページにアクセスできない
     public function test_user_cannot_access_others_posts_edit()
@@ -193,4 +194,5 @@ class postTest extends TestCase
         $this->assertDatabaseHas('posts', $new_post);
         $response->assertRedirect(route('posts.show', $old_post));
     }
+    
 }

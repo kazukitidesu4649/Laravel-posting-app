@@ -14,7 +14,7 @@
 
               <ul>
                   <li>
-                      <a href="{{ route('logout') }}" onclick="event.preventDefault.getElementById('logout-form').submit();">ログアウト</a>
+                      <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
                       <form id="logout-form" action="{{ route('logout') }}" method="POST">
                           @csrf
                       </form>
@@ -26,15 +26,19 @@
     <main>
         <h1>投稿詳細</h1>
 
-        @if (session('flach_message'))
+        @if (session('flash_message'))
           <p>{{ session('flash_message') }}</p>
         @endif
 
-        <a href="{{ route('posts.index') }}">&lt; 戻る</a>
+        <a href="{{ route('posts.index') }}">&lt; 戻る (投稿一覧へ)</a>
 
         <article>
             <h2>{{ $post->title }}</h2>
             <p>{{ $post->content }}</p>
+
+            @if ($post->user_id === Auth::id())
+                <a href="{{ route('posts.edit', $post) }}">編集</a>
+            @endif
         </article>
     </main>
 
