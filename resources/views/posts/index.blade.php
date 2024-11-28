@@ -44,6 +44,7 @@
                 <h2>{{ $post->title }}</h2>
                 <p>{{ $post->content }}</p>
                 <a href="{{ route('posts.show', $post) }}">詳細</a>
+                <a href="{{ route('posts.edit', $post) }}">編集</a>
             </article>
           
           @endforeach
