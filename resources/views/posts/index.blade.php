@@ -31,6 +31,10 @@
           <p>{{ session('flash_message') }}</p>
         @endif
 
+        @if (session('error_message'))
+          <p>{{ session('error_message') }}</p>
+        @endif
+
         <!-- 新規投稿ページへのリンクを追加-->
           <a href="{{ route('posts.create') }}">新規投稿</a>
         
