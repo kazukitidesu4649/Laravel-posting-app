@@ -34,7 +34,7 @@ class postTest extends TestCase
     }
 
     // 未ログインのユーザーは投稿詳細ページにアクセスできない
-    public function test_guest_cannnot_access_posts_show()
+    public function test_guest_cannot_access_posts_show()
     {
         $user = User::factory()->create();
         $post = Post::factory()->create(['user_id'=> $user->id]);
@@ -45,7 +45,7 @@ class postTest extends TestCase
     }
 
     // ログイン済みユーザーは投稿詳細ページにアクセスできる
-    public function test_use_can_access_posts_show()
+    public function test_user_can_access_posts_show()
     {
         $user = User::factory()->create();
         $post  =Post::factory()->create(['user_id' => $user->id]);
