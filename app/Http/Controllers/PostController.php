@@ -14,7 +14,7 @@ class PostController extends Controller
     {
         // 認証済みのユーザーが所用する投稿を取得し、作成日時を降順で並べて取得する。
         $posts = Auth::user()->posts()->orderBy('created_at', 'desc')->get();
-
+        
         // posts/index.blade.phpに $posts(compact('posts'))に渡す。
         // bladeテンプレート内で$postsを使用できる様になる。
         return view('posts.index',compact('posts'));
