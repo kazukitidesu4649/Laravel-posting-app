@@ -45,6 +45,13 @@
                 <p>{{ $post->content }}</p>
                 <a href="{{ route('posts.show', $post) }}">詳細</a>
                 <a href="{{ route('posts.edit', $post) }}">編集</a>
+
+                <!-- 削除機能-->
+                 <form action="{{ route('posts.destroy', $post)}}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">削除</button>
+                 </form>
             </article>
           
           @endforeach
