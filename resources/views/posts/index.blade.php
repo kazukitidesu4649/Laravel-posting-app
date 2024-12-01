@@ -1,62 +1,43 @@
-<!DOCTYPE html>
-<html lang="ja">
+@extends('layouts.app')
 
-<head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width", initial-scale="1.0">
-      <title>投稿一覧</title>
-</head>
+@section('title','投稿一覧')
 
-<body>
-    <header>
-        <nav>
-            <a href="{{ route('posts.index') }}">投稿アプリ</a>
+@section('content')
+      @if (session('flash_message'))
+        <p class="text-success">{{ session('flash_message') }}</p>
+      @endif
 
-            <ul>
-                <li>
-                    <a href="{{ route('logout') }} onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
-                    <form id="logout-form" action="{{  route('logout') }}" method="POST">
-                      @csrf
-                    </form>
-                </li>
-            </ul>
-        </nav>
-    </header>
+      @if (session('error_message'))
+        <p class="text-danger">{{ session('error_message') }}</p>
+      @endif
+      
+      <div class="mb-2">
+        <a href="{{ route('posts.create') }}" class="text-decoration-none">新規投稿</a>
+      </div>
 
-    <main>
-        <h1>投稿一覧</h1>
-        
-        <!-- sessionへルパ関数を用い、if文でflash_messageを表示 -->
-        @if (session('flash_message'))
-          <p>{{ session('flash_message') }}</p>
-        @endif
-
-        @if (session('error_message'))
-          <p>{{ session('error_message') }}</p>
-        @endif
-
-        <!-- 新規投稿ページへのリンクを追加-->
-          <a href="{{ route('posts.create') }}">新規投稿</a>
-        
-        @if ($posts->isNotEmpty())
+      @if ($posts->isNotEmpty())
           @foreach ($posts as $post)
-            <article>
-                <h2>{{ $post->title }}</h2>
-                <p>{{ $post->content }}</p>
-                <a href="{{ route('posts.show', $post) }}">詳細</a>
-                <a href="{{ route('posts.edit', $post) }}">編集</a>
+              <article>
+                  <div class="card mb-3">
+                      <div class="card-baby">
+                          <h2 class="card-title fs-5">{{$post->title}}</h2>
+                          <p class="card-text">{{ $post->content }}</p>
 
-                <!-- 削除機能-->
-                 <form action="{{ route('posts.destroy', $post)}}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">削除</button>
-                 </form>
-            </article>
-          
+                          <div class="d-flex">
+                            <a href="{{ route('posts.show', $post) }}" class="btn btn-outline-primary d-block me-1">詳細</a>
+                            <a href="{{ route('posts.edit', $post) }}" class="btn btn-outline-primary d-block me-1">編集</a>
+
+                            <form action="{{ route('posts.destroy', $post)}}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？');">
+                              @scrf
+                              @method('DELETE')
+                              <button type="submit" class="btn btn-outlin-danger">削除</button>
+                            </form>
+                            </div>
+                      </div>
+                  </div>
+              </article>
           @endforeach
-        
-        @endif
-    </main>
-</body>
-</html>
+      @else
+        <p>投稿はありません</p>
+      @endif
+@endsection
