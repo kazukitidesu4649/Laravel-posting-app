@@ -36,6 +36,12 @@ class PostController extends Controller
     // 作成機能
     public function store(PostRequest $request)
     {   
+        //バリデーションを設定する
+        $request->validate([
+            'title' => 'required|max:40',
+            'content' => 'required|max:200'
+        ]);
+
         // Postのインスタンス化
         $post = new Post();
         // 変数$postにそれぞれの情報を格納
@@ -65,6 +71,12 @@ class PostController extends Controller
          if ($post->user_id !== Auth::id()) {
              return redirect()->route('posts.index')->with('error_message', '不正なアクセスです。');
          }
+
+         //バリデーションを設定する
+        $request->validate([
+            'title' => 'required|max:40',
+            'content' => 'required|max:200'
+        ]);
  
          $post->title = $request->input('title');
          $post->content = $request->input('content');
