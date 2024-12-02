@@ -16,6 +16,7 @@
             <div class="card-body">
                 <h2 class="card-title fs-5">{{ $post->title }}</h2>
                 <p class="card-text">{{ $post->content }}</p>
+                <p class="card-updated_at">{{ $post->updated_at}}</p>
 
                 @if ($post->user_id === Auth::id())
                     <div class="d-flex">

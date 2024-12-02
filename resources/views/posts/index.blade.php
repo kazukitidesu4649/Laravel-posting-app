@@ -22,6 +22,7 @@
                       <div class="card-boby">
                           <h2 class="card-title fs-5">{{$post->title}}</h2>
                           <p class="card-text">{{ $post->content }}</p>
+                          <p class="card-updated_at">{{ $post->updated_at}}</p>
 
                           <div class="d-flex">
                             <a href="{{ route('posts.show', $post) }}" class="btn btn-outline-primary d-block me-1">詳細</a>
