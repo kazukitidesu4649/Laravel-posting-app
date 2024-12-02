@@ -18,7 +18,7 @@
     </div>
 
     <form action="{{ route('posts.store') }}" method="POST">
-        @csfr
+        @csrf
         <div class="form-group mb-3">
             <label for="title">タイトル</label>
             <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}">
